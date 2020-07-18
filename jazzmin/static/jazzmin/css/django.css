@@ -635,3 +635,11 @@ body.no-sidebar .main-header {
 .login-box, .register-box {
     width: auto;
 }
+
+#jazzy-actions.sticky-top {
+    top: 10px;
+}
+
+body.layout-navbar-fixed #jazzy-actions.sticky-top {
+    top: 67px;
+}
