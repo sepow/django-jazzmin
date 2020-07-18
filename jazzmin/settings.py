@@ -83,6 +83,8 @@ DEFAULT_UI_TWEAKS = {
     "navbar": "navbar-white navbar-light",
     # topmenu border
     "no_navbar_border": False,
+    # Make the top navbar sticky, keeping it in view as you scroll
+    "navbar_fixed": False,
     # sidemenu colour
     "sidebar": "sidebar-dark-primary",
     # sidemenu small text
@@ -97,6 +99,12 @@ DEFAULT_UI_TWEAKS = {
     "sidebar_nav_legacy_style": False,
     # Use a flat style sidebar
     "sidebar_nav_flat_style": False,
+    # Whether to constrain the page to a box (leaving big margins at the side)
+    "layout_boxed": False,
+    # Make the footer sticky, keeping it in view all the time
+    "footer_fixed": False,
+    # Make the sidebar sticky, keeping it in view as you scroll
+    "sidebar_fixed": False,
 }
 
 
@@ -153,9 +161,8 @@ def get_ui_tweaks():
         "sidebar_nav_compact_style": "nav-compact",
         "sidebar_nav_legacy_style": "nav-legacy",
         "sidebar_nav_flat_style": "nav-flat",
-        "sidebar_colapsed": "sidebar-collapse",
         "layout_boxed": "layout-boxed",
-        "sidebar_fixed": "layout-navbar-fixed",
+        "sidebar_fixed": "layout-fixed",
         "navbar_fixed": "layout-navbar-fixed",
         "footer_fixed": "layout-footer-fixed",
         "actions_sticky_top": "sticky-top",
@@ -171,13 +178,7 @@ def get_ui_tweaks():
     return {
         "raw": raw_tweaks,
         "body_classes": classes(
-            "accent",
-            "body_small_text",
-            "navbar_fixed",
-            "footer_fixed",
-            "sidebar_colapsed",
-            "sidebar_fixed",
-            "layout_boxed",
+            "accent", "body_small_text", "navbar_fixed", "footer_fixed", "sidebar_fixed", "layout_boxed",
         ),
         "sidebar_classes": classes("sidebar", "sidebar_disable_expand"),
         "navbar_classes": classes("navbar", "no_nav_border", "navbar_small_text"),
