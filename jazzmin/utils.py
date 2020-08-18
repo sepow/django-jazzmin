@@ -159,7 +159,15 @@ def get_view_permissions(user: AbstractUser) -> Set[str]:
         )
     return {x.replace("view_", "") for x in lower_perms if "view" in x or "change" in x}
 
-
+def _create_url(link, options):
+    return {
+        "name": link.get("name", "unspecified"),
+        "url": get_custom_url(link["url"]),
+        "children": None,
+        "icon": link.get("icon", options["default_icon_children"]),
+        "new_window": link.get("new_window", False)
+    }
+    
 def make_menu(
     user: AbstractUser,
     links: List[Dict],
@@ -167,6 +175,7 @@ def make_menu(
     allow_appmenus: bool = True,
     admin_site: str = "admin",
 ) -> List[Dict]:
+
     """
     Make a menu from a list of user supplied links
     """
@@ -188,15 +197,18 @@ def make_menu(
         # Url links
         if "url" in link:
             menu.append(
+                _create_url(link, options)
+            )
+
+
+        if "submenu" in link:
+            menu.append(
                 {
-                    "name": link.get("name", "unspecified"),
-                    "url": get_custom_url(link["url"], admin_site=admin_site),
-                    "children": None,
-                    "new_window": link.get("new_window", False),
+                    "name": link.get("submenu", "unspecified"),
+                    "children": [_create_url(_link, options) for _link in link['children']],
                     "icon": link.get("icon", options["default_icon_children"]),
                 }
             )
-
         # Model links
         elif "model" in link:
             if link["model"].lower() not in model_permissions:
